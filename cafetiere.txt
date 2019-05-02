@@ -1,0 +1,209 @@
+// Cafetiere_2_boutons
+const int ALIMENTATION = 2;
+const int ONOFF = 3;
+const int SIMPLE_TASSE = 4;
+const int DOUBLE_TASSE = 5;
+const int BOUTON_1 = 8;
+const int BOUTON_2 = 9;
+const int LED_TEMOIN = 13;
+// Temps avant mise en veille de la cafetière (en minutes)
+const int VEILLE = 5;
+// Etat de la cafetière (0 éteinte, 1 allumée)
+boolean allumageCafetiere = 0;
+// Moment de la derniere utilisation
+unsigned long derniereUtilisation;
+
+void setup() {
+  pinMode(ALIMENTATION, OUTPUT);
+  pinMode(ONOFF, OUTPUT);
+  pinMode(SIMPLE_TASSE, OUTPUT);
+  pinMode(DOUBLE_TASSE, OUTPUT);
+  pinMode(BOUTON_1, INPUT_PULLUP);
+  pinMode(BOUTON_2, INPUT_PULLUP);
+  pinMode(LED_TEMOIN, OUTPUT);
+  // Mise hors tension de la cafetière
+  digitalWrite(ALIMENTATION, HIGH);
+  // Les 3 boutons ne sont pas appuyés
+  digitalWrite(ONOFF, HIGH);
+  digitalWrite(SIMPLE_TASSE, HIGH);
+  digitalWrite(DOUBLE_TASSE, HIGH);
+  // La LED témoin est allumée
+  digitalWrite(LED_TEMOIN, HIGH);
+}
+void loop() {
+  // Si on appuie sur le bouton 1
+  if (digitalRead(BOUTON_1) == LOW){
+    appuyer(SIMPLE_TASSE);
+  }
+  // Si on appuie sur le bouton 2...
+  if (digitalRead(BOUTON_2) == LOW){
+    appuyer(DOUBLE_TASSE);
+  }
+  // Si la cafetière est allumée et qu'elle n'a pas été utilisée depuis longtemps
+  if ((millis() - derniereUtilisation) >= (VEILLE*60000) && allumageCafetiere == 1){
+    extinctionCafetiere();
+  }
+}
+
+void appuyer(int bouton){
+  digitalWrite(LED_TEMOIN, LOW);
+  // Si la cafetière est éteinte
+  if (allumageCafetiere == 0){
+    // Mise sous tension de la cafetière
+    digitalWrite(ALIMENTATION, LOW);
+    delay(1000);
+    // Appui sur le bouton ON/OFF pour allumer la cafetière
+    digitalWrite(ONOFF, LOW);
+    delay(500);
+    // Relachement du bouton ON/OFF
+    digitalWrite(ONOFF, HIGH);
+    // Chauffage de l'eau dans la cuve
+    // Ajustez ces valeurs en fonction de votre cafetière
+    pause(90); // 90 secondes (1 min 30 sec)
+    // Indique que la cafetière est allumée
+    allumageCafetiere = 1;  
+  }
+  // Appui sur le bouton
+  digitalWrite(bouton, LOW);
+  delay(500);
+  // Relachement du bouton
+  digitalWrite(bouton, HIGH);
+  // Préparation du café et chauffage de l'eau
+  // Ajustez ces valeurs en fonction de votre cafetière
+  if (bouton == SIMPLE_TASSE){
+    pause(70); // 70 secondes (1 min 10 sec)
+  }
+  else {
+    pause(100); // 100 secondes (1 min 40 sec)
+  }
+  // Mise à jour du moment de la dernière utilisation
+  derniereUtilisation = millis();
+  digitalWrite(LED_TEMOIN, HIGH);
+}
+
+void extinctionCafetiere(){
+  // Mise hors tension de la cafetière
+  digitalWrite(ALIMENTATION, HIGH);
+  // Indique que la cafetière est éteinte
+  allumageCafetiere = 0;
+}
+
+void pause(int secondes){
+  // Faire clignoter la LED témoin en attendant le nb de secondes indiqué
+  for (int i=0; i < secondes; i++){
+    digitalWrite(LED_TEMOIN, HIGH);
+    delay(500);
+    digitalWrite(LED_TEMOIN, LOW);
+    delay(500);
+  }
+}
+
+
+
+// Cafetiere_Bluetooth
+const int ALIMENTATION = 2;
+const int ONOFF = 3;
+const int SIMPLE_TASSE = 4;
+const int DOUBLE_TASSE = 5;
+const int LED_TEMOIN = 13;
+// Temps avant mise en veille de la cafetière (en minutes)
+const int VEILLE = 5;
+// Etat de la cafetière (0 éteinte, 1 allumée)
+boolean allumageCafetiere = 0;
+// Stockage du contenu du message
+char message = 0;
+// Moment de la derniere utilisation
+unsigned long derniereUtilisation;
+
+void setup() {
+  Serial.begin(9600);
+  // Initialisation des sorties
+  pinMode(ALIMENTATION, OUTPUT);
+  pinMode(ONOFF, OUTPUT);
+  pinMode(SIMPLE_TASSE, OUTPUT);
+  pinMode(DOUBLE_TASSE, OUTPUT);
+  pinMode(LED_TEMOIN, OUTPUT);
+  // Mise hors tension de la cafetière
+  digitalWrite(ALIMENTATION, HIGH);
+  // Les 3 boutons ne sont pas appuyés
+  digitalWrite(ONOFF, HIGH);
+  digitalWrite(SIMPLE_TASSE, HIGH);
+  digitalWrite(DOUBLE_TASSE, HIGH);
+  // La LED témoin est allumée
+  digitalWrite(LED_TEMOIN, HIGH);
+}
+void loop() {
+  // Réception du message en Bluetooth
+  if (Serial.available()>0){
+    message = Serial.read();
+      switch (message) {
+      // Simple tasse
+      case '1':
+      appuyer(SIMPLE_TASSE);
+      break;
+      // Double tasse
+      case '2':
+      appuyer(DOUBLE_TASSE);
+      break;    
+    } 
+    message = 0; 
+  }
+  // Si la cafetière est allumée et qu'elle n'a pas été utilisée depuis longtemps
+  if ((millis() - derniereUtilisation) >= (VEILLE*60000) && allumageCafetiere == 1){
+    // Mise hors tension de la cafetière
+    digitalWrite(ALIMENTATION, HIGH);
+    // Indique que la cafetière est éteinte
+    allumageCafetiere = 0;
+  }
+}
+
+void appuyer(int bouton){
+  digitalWrite(LED_TEMOIN, LOW);
+  // Si la cafetière est éteinte
+  if (allumageCafetiere == 0){
+    // Mise sous tension de la cafetière
+    digitalWrite(ALIMENTATION, LOW);
+    delay(1000);
+    // Appui sur le bouton ON/OFF pour allumer la cafetière
+    digitalWrite(ONOFF, LOW);
+    delay(500);
+    // Relachement du bouton ON/OFF
+    digitalWrite(ONOFF, HIGH);
+    // Chauffage de l'eau dans la cuve
+    // Ajustez ces valeurs en fonction de votre cafetière
+    pause(90); // 90 secondes (1 min 30 sec)
+    // Indique que la cafetière est allumée
+    allumageCafetiere = 1;  
+  }
+  // Appui sur le bouton
+  digitalWrite(bouton, LOW);
+  delay(500);
+  // Relachement du bouton
+  digitalWrite(bouton, HIGH);
+  // Préparation du café et chauffage de l'eau
+  // Ajustez ces valeurs en fonction de votre cafetière
+  if (bouton == SIMPLE_TASSE){
+    pause(70); // 70 secondes (1 min 10 sec)
+  }
+  else {
+    pause(100); // 100 secondes (1 min 40 sec)
+  }
+  // Mise à jour du moment de la dernière utilisation
+  derniereUtilisation = millis();
+  digitalWrite(LED_TEMOIN, HIGH);
+}
+
+
+void pause(int secondes){
+  // Faire clignoter la LED témoin en attendant. le nb de secondes indiqué
+  for (int i=0; i < secondes; i++){
+    digitalWrite(LED_TEMOIN, HIGH);
+    delay(500);
+    digitalWrite(LED_TEMOIN, LOW);
+    delay(500);
+  }
+}
+
+
+ 
+

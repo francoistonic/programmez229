@@ -1,0 +1,309 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fnil\fcharset0 Calibri-Italic;\f1\froman\fcharset0 TimesNewRomanPSMT;\f2\froman\fcharset0 TimesNewRomanPS-ItalicMT;
+\f3\fnil\fcharset0 Calibri;\f4\froman\fcharset0 TimesNewRomanPS-BoldMT;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab708
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+
+\f0\i\fs24 \cf0 import 'package:flutter/material.dart';\
+\
+void main() => runApp(MyApp());\
+\
+class MyApp extends StatelessWidget \{\
+  // Ce Widget est la racine de l'application\
+  @override\
+  Widget build(BuildContext context) \{\
+    return MaterialApp(\
+      title: 'Flutter on Programmez!',\
+      theme: ThemeData(\
+        primarySwatch: Colors.green,\
+      ),\
+      home: MyHomePage(title: 'Flutter on Programmez!'),\
+    );\
+  \}\
+\pard\pardeftab708\ri-46\sa240\qj\partightenfactor0
+
+\f1\i0 \cf0 \}\
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+\cf0 \
+\
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+
+\f0\i \cf0 class MyHomePage extends StatefulWidget \{\
+  MyHomePage(\{Key key, this.title\}) : super(key: key);\
+  \
+  final String title;\
+\
+  @override\
+  _MyHomePageState createState() => _MyHomePageState();\
+\}\
+\
+class _MyHomePageState extends State<MyHomePage> \{\
+  int _counter = 0;\
+\
+  void _incrementCounter() \{\
+    setState(() \{\
+      _counter++;\
+    \});\
+  \}\
+\
+  @override\
+  Widget build(BuildContext context) \{\
+    return Scaffold(\
+      appBar: AppBar(\
+        title: Text(widget.title),\
+      ),\
+      body: Center(\
+        child: Column(\
+          mainAxisAlignment: MainAxisAlignment.center,\
+          children: <Widget>[\
+            Text(\
+              'Number of click on the Button:',\
+            ),\
+            Text(\
+              '$_counter',\
+              style: Theme.of(context).textTheme.display1,\
+            ),\
+          ],\
+        ),\
+      ),\
+      floatingActionButton: FloatingActionButton(\
+        onPressed: _incrementCounter,\
+        tooltip: 'Increment',\
+        child: Icon(Icons.add),\
+      ),\
+    );\
+  \}\
+\pard\pardeftab708\ri-46\sa240\qj\partightenfactor0
+
+\f2 \cf0 \}\
+\pard\pardeftab708\ri-46\partightenfactor0
+
+\f1\i0 \cf0 \
+\
+\pard\pardeftab708\ri-46\partightenfactor0
+
+\f0\i \cf0 dependencies:\
+  flutter:\
+    sdk: flutter\
+\
+  cupertino_icons: ^0.1.2\
+\pard\pardeftab708\ri-46\sa240\qj\partightenfactor0
+\cf0   http: any\
+\pard\pardeftab708\ri-46\sa240\qj\partightenfactor0
+
+\f3\i0 \cf0 Il ne reste plus qu\'92\'e0 faire les imports de biblioth\'e8ques de code n\'e9cessaires au d\'e9but de notre fichier 
+\f0\i main.dart
+\f1\i0 \'a0
+\f3 :\
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+
+\f0\i \cf0 import 'dart:async';\
+import 'dart:convert';\
+import 'dart:math';\
+import 'package:http/http.dart' as http;\
+\pard\pardeftab708\ri-46\sa240\qj\partightenfactor0
+\cf0 import 'package:flutter/material.dart';\
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+
+\f1\i0 \cf0 \
+\
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+
+\f0\i \cf0 Future<List> getPrices() async \{\
+  String apiUrl = 'https://api.coinmarketcap.com/v1/ticker/?limit=50';\
+  http.Response response = await http.get(apiUrl);\
+  return json.decode(response.body);\
+\pard\pardeftab708\ri-46\sa240\qj\partightenfactor0
+
+\f2 \cf0 \}\
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+
+\f1\i0 \cf0 \
+\
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+
+\f0\i \cf0 class CryptoListWidget extends StatelessWidget \{\
+  final Random _random = new Random();\
+  final List<MaterialColor> _colors = [Colors.green, Colors.blue, Colors.red,\
+        Colors.orange, Colors.brown, Colors.yellow, Colors.cyan, Colors.purple];\
+  final List _prices;\
+\
+  CryptoListWidget(this._prices);\
+\
+  @override\
+  Widget build(BuildContext context) \{\
+    return new Scaffold(\
+      body: _buildBody(),\
+      backgroundColor: Color(0xFF43a047),\
+      floatingActionButton: new FloatingActionButton(onPressed: () \{\
+         // Am\'e9lioration \'e0 faire ...\
+      \}, child: new Icon(Icons.refresh),\
+         backgroundColor: Colors.lightGreen\
+      ),\
+    );\
+  \}\
+\
+  Widget _buildBody() \{\
+    return new Container(\
+      margin: const EdgeInsets.fromLTRB(8.0, 56.0, 8.0, 0.0),\
+      child: new Column(\
+        children: <Widget>[_getAppTitleWidget(), _getListViewWidget()],\
+      ),\
+    );\
+  \}\
+\
+  Widget _getAppTitleWidget() \{\
+    return new Text(\
+      'Crypto Prices',\
+      style: new TextStyle(\
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24.0),\
+    );\
+  \}\
+  \
+  // ... Manque la liste ...\
+\pard\pardeftab708\ri-46\sa240\qj\partightenfactor0
+
+\f2 \cf0 \}\
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+
+\f4\i0\b \cf0 \
+\
+\pard\pardeftab708\ri-46\qj\partightenfactor0
+
+\f0\i\b0 \cf0 import 'dart:async';\
+import 'dart:convert';\
+import 'dart:math';\
+import 'package:http/http.dart' as http;\
+import 'package:flutter/material.dart';\
+\
+void main() async \{\
+  // Am\'e9lioration \'e0 faire : utiliser une progress view :)\
+  List prices = await getPrices();\
+\
+  runApp(new MaterialApp(\
+    home: new Center(\
+      child: new CryptoListWidget(prices),\
+    ),\
+  ));\
+\}\
+\
+Future<List> getPrices() async \{\
+  String apiUrl = 'https://api.coinmarketcap.com/v1/ticker/?limit=50';\
+  http.Response response = await http.get(apiUrl);\
+  return json.decode(response.body);\
+\}\
+\
+class CryptoListWidget extends StatelessWidget \{\
+  final Random _random = new Random();\
+  final List<MaterialColor> _colors = [Colors.green, Colors.blue, Colors.red,\
+        Colors.orange, Colors.brown, Colors.yellow, Colors.cyan, Colors.purple];\
+  final List _prices;\
+\
+  CryptoListWidget(this._prices);\
+\
+  @override\
+  Widget build(BuildContext context) \{\
+    return new Scaffold(\
+      body: _buildBody(),\
+      backgroundColor: Color(0xFF43a047),\
+      floatingActionButton: new FloatingActionButton(onPressed: () \{\
+        // Do something when FAB is pressed\
+      \}, child: new Icon(Icons.refresh),\
+         backgroundColor: Colors.lightGreen\
+      ),\
+    );\
+  \}\
+\
+  Widget _buildBody() \{\
+    return new Container(\
+      margin: const EdgeInsets.fromLTRB(8.0, 56.0, 8.0, 0.0),\
+      child: new Column(\
+        children: <Widget>[_getAppTitleWidget(), _getListViewWidget()],\
+      ),\
+    );\
+  \}\
+\
+  Widget _getAppTitleWidget() \{\
+    return new Text(\
+      'Crypto Prices',\
+      style: new TextStyle(\
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24.0),\
+    );\
+  \}\
+\
+  Widget _getListViewWidget() \{\
+    return new Flexible(\
+        child: new ListView.builder(\
+            itemCount: _prices.length,\
+            itemBuilder: (context, index) \{\
+              final Map price = _prices[index];\
+              final MaterialColor color = _colors[_random.nextInt(_colors.length)];\
+              return _getListItemWidget(price, color);\
+            \}));\
+  \}\
+\
+  CircleAvatar _getLeadingWidget(String currencyName, MaterialColor color) \{\
+    return new CircleAvatar(\
+      backgroundColor: color,\
+      child: new Text(currencyName[0],\
+          style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),\
+    );\
+  \}\
+\
+  Text _getTitleWidget(String currencyName) \{\
+    return new Text(\
+      currencyName,\
+      style: new TextStyle(fontWeight: FontWeight.bold),\
+    );\
+  \}\
+\
+  RichText _getSubtitleText(String priceUsd, String percentChange1h) \{\
+    TextSpan priceTextWidget = new TextSpan(text: "\\$$priceUsd\\n", style:\
+    new TextStyle(color: Colors.black),);\
+    String percentChangeText = "1 hour: $percentChange1h%";\
+    TextSpan percentChangeTextWidget;\
+\
+    if(double.parse(percentChange1h) > 0) \{\
+      percentChangeTextWidget = new TextSpan(text: percentChangeText,\
+        style: new TextStyle(color: Colors.green),);\
+    \}\
+    else \{\
+      percentChangeTextWidget = new TextSpan(text: percentChangeText,\
+        style: new TextStyle(color: Colors.red),);\
+    \}\
+\
+    return new RichText(text: new TextSpan(\
+        children: [\
+          priceTextWidget,\
+          percentChangeTextWidget\
+        ]\
+    ),);\
+  \}\
+\
+  ListTile _getListTile(Map currency, MaterialColor color) \{\
+    return new ListTile(\
+      leading: _getLeadingWidget(currency['name'], color),\
+      title: _getTitleWidget(currency['name']),\
+      subtitle: _getSubtitleText(\
+          currency['price_usd'], currency['percent_change_1h']),\
+      isThreeLine: true,\
+    );\
+  \}\
+\
+  Container _getListItemWidget(Map currency, MaterialColor color) \{\
+    return new Container(\
+      margin: const EdgeInsets.only(top: 5.0),\
+      child: new Card(\
+        child: _getListTile(currency, color),\
+      ),\
+    );\
+  \}\
+\pard\pardeftab708\ri-46\sa360\qj\partightenfactor0
+
+\f2 \cf0 \}\
+\pard\pardeftab708\ri-46\sb360\sa240\partightenfactor0
+\cf0 \
+}

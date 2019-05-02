@@ -1,0 +1,303 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fnil\fcharset0 Consolas;\f1\fnil\fcharset0 Calibri;\f2\fnil\fcharset0 Calibri-Bold;
+\f3\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red4\green51\blue255;\red0\green0\blue0;\red180\green38\blue26;
+\red51\green162\blue189;\red242\green145\blue63;}
+{\*\expandedcolortbl;;\csgenericrgb\c1680\c19831\c100000;\csgenericrgb\c0\c0\c0;\csgenericrgb\c70687\c15010\c10243;
+\csgenericrgb\c19855\c63462\c74115;\csgenericrgb\c95061\c56699\c24672;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs16 \cf2 public\cf3  \cf2 async\cf3  Task<List<Message>> GetMessagesAsync()\
+\{\cf2 \
+v\cf3 ar uri \cf4 = "http://www.contoso.com/message\cf3 s"
+\fs19 ;\
+    
+\fs16 \cf2    us\cf3 ing (HttpClient client\cf2  = \cf3 new HttpClient())\
+        \{\
+       		HttpResponseMessage respon\cf2 se = \cf3 await client.GetAsync(uri);\
+                response.EnsureSuccessStatusCode();\
+         \cf2       \cf3  \cf2 retur\cf3 n await response.Content.ReadAsAsync<List<Message>>();\
+     
+\f1\fs22   
+\f0\fs16 \cf2  \}\
+\}\cf3 \
+\cf2 \
+\
+\cf3 \
+\cf5 public class Mes\cf3 sag\cf2 esServi\cf3 ces\
+\{\
+private HttpClientHandler _httpClientHan\cf2 dler;\cf3 \
+\cf5 \
+        public\cf3  MessagesServices()\
+        \{\
+        		_h\cf2 ttp\cf3 ClientHandler = new HttpClientHandler();\cf2 \
+     \cf3  \cf2   \}\
+\cf3 \
+        public async Task<Mess\cf2 age\cf3 > GetMessagesAsync(int id\cf2 )\
+\cf3        \cf4  \{\
+         	var uri = $"http://\cf3 www.\cf4 c\cf3 ontoso.com/m\cf2 essag\cf3 e/\{id\}";\
+     \cf2    \cf3 		using (var client = new HttpCl\cf2 ient(\cf3 _httpClientHandler,\cf2  fals\cf3 e))\
+            \cf2     u\cf3 sing (var response = await client.GetAsync(uri))\
+\{\
+                		response.EnsureSuccessStat\cf2 usCode\cf3 (\cf2 );\
+ \cf3                		return await response.Content.ReadAsAsync<Mess\cf2 age>()\cf3 ;\cf2 \
+\}\
+\cf3         \}\
+\
+        public async Task<List<Message>> GetMessagesA\cf2 syn\cf3 c()\
+  \cf4       \{\
+                var uri \cf3 = "http://www.cont\cf2 oso.c\cf3 om/messages";\
+\cf2    \cf3              using (var client =\cf2  new \cf3 HttpClient(_httpCli\cf2 entHa\cf3 ndler, false))\
+ \cf2      \cf3           using (var response = await client.GetAsync(uri))\
+\{\
+                		response.Ensure\cf2 Succes\cf3 s\cf2 Statu\cf3 sCode();\
+                		return await response.Content.Read
+\f1 A
+\f2\b\fs22 s
+\f1\b0 A
+\f0\fs16 \cf2 sync<L\cf3 i\cf2 st<Me\cf3 s\cf5 sage>>();\
+\}	\
+ \cf3    \cf2     \}\
+\cf3 \}\
+\
+\
+public class MessagesServices\
+\{\
+private \cf2 IHttpC\cf3 lientFactory _httpClientFactory;\
+\
+        public MessagesServices(IHttpClientFactory httpClientFactory)\
+        \{\
+        		_httpCl\cf2 ientFa\cf3 c\cf2 tory \cf3 = httpClientFactory;\
+        \}\cf2 \
+\
+\cf3         public async Task\cf2 <Me\cf3 ssage> \cf4 GetMessagesAsync(int id)\
+       \cf3  \{\
+\cf4  \cf3         	var\cf2  uri \cf3 = \cf2 $"h\cf3 ttp://www.contoso.com/message/\{id\}";\
+        		using (var cl\cf2 ient \cf3 = _httpClientFact\cf2 ory.C\cf3 reateClient())\
+                using (var response = await client.GetAsync(uri))\
+\{\
+           \cf2      	\cf3 	\cf2 respo\cf3 nse.EnsureSuccessStatusCode();\
+                		return await \cf2 respon\cf3 s\cf2 e.Con\cf3 tent.ReadAsAsync<Message>();\
+\}\
+        \}\
+\
+        public async\cf2  Ta\cf3 sk<List\cf4 <Message>> GetMessagesAsync()\
+  \cf3       \{\
+         \cf2      \cf3   \cf2 var\cf3  uri = "http://www.contoso.com/messages";\
+                us\cf2 ing (\cf3 var client = _htt\cf2 pClie\cf3 ntFactory.CreateClient())\
+                using (var response = await client.GetAsync(uri))\
+\{\
+\cf2       \cf3  \cf2      \cf3     		response.EnsureSuccessStatusCode();\
+                		r
+\f1 e
+\fs22 t
+\fs16 u
+\f0 \cf2 rn awa\cf3 i\cf2 t res\cf3 p\cf5 onse.Content.Read\cf3 AsAsync<List<Message>>\cf2 ();\
+\}	\cf3 \
+        \}\
+\}\
+\
+\
+public cl\cf2 ass Me\cf3 ssagesServices : IMessagesServices\
+\{\
+private HttpClient _client;\
+        public MessagesSer\cf2 vices(\cf3 H\cf2 ttpCl\cf3 ient client)\
+        \{\
+       \cf2  		\cf3 _client = client;\
+      \cf2   \}\cf3 \
+\
+   \cf4      public\cf3  asy\cf4 n\cf3 c Task<Message> Ge\cf2 tMess\cf3 agesAsync(int id)\cf2 \
+   \cf3      \{\
+         	var uri = $"/message/\{id\}";\
+                using (var response = await _client\cf2 .GetAs\cf3 y\cf2 nc(ur\cf3 i))\
+\{\
+                		response.EnsureSuccessStatusCode();\
+\cf2       \cf3  \cf2      \cf3     		return await response.Content.ReadAsAsync<Message>();\
+\}\
+  \cf2    \cf3    \}\
+\cf4 \
+        pu\cf3 blic async Task<Li\cf2 st<Me\cf3 ssage>> GetMessag\cf2 esAsy\cf3 nc()\
+        \{\
+                var uri = "/messages";\
+                using (var response = awa\cf2 it _cl\cf3 i\cf2 ent.G\cf3 etAsync(uri))\
+\{\
+                		response.EnsureSuccessStat
+\f1 u
+\fs22 sC
+\f0\fs16 \cf2 ode();\
+        \cf3  \cf5        		return await respo\cf3 nse\cf2 .Content.R\cf3 eadAsAsync<Lis\cf2 t<M\cf3 es\cf2 sag\cf3 e>>();\
+\}	\cf2 \
+  \cf3       \}\
+\}\
+\
+\
+p\cf2 ubl\cf3 ic\cf2  in\cf3 terfac\cf2 e ICir\cf3 c\cf2 uitBreake\cf3 r\cf5 PolicyConfig\
+\{\
+ \cf3       int \cf2 Ret\cf3 ryCount \{ get;\cf2  se\cf3 t;\cf2  \}\cf3 \
+     \cf2   int \cf3 B\cf2 reakD\cf3 u\cf5 ration \{ get\cf3 ; s\cf5 et; \}\
+\}\
+public interface \cf3 IR\cf5 etryPolicyConfig\
+\cf3 \{\
+       \cf2 int Re\cf3 t\cf2 ryC\cf3 ount \{ get; se\cf2 t; \cf3 \}\cf2 \
+\}\cf3 \
+public cla\cf2 ss Pol\cf3 i\cf2 cyC\cf3 onfig : ICircuitB\cf2 rea\cf3 ke\cf2 rPo\cf3 licyC
+\f1 o
+\fs22 nf
+\f0\fs16 \cf2 ig, IR\cf3 e\cf2 tryPol\cf3 i\cf2 cyCon\cf3 f\cf5 ig\
+\{\
+       pub\cf3 lic int RetryCo\cf2 unt \{ \cf3 g\cf2 et; se\cf3 t; \}\
+       public int BreakDuration \{ get; set; \}\
+\}\
+\
+\
+public static class HttpRetryPolicies\
+    \{\
+        public static R\cf2 etryPo\cf3 licy<HttpResponseMessage> GetHttpRetryPolicy(ILogger logger, IRetryPolicyConfig retryPolicyConfig)\
+        \{\
+            return HttpPolicyBuilders.GetDefaultBuilder()\
+                                          .WaitAndRetryAsync(retryPolicyConfig.RetryCount,\
+                                                             ComputeDuration,\
+                                                             (result, timeSpan, retryCount, context) =>\
+                                                             \{\
+                                                                 OnHttpRetr\cf2 y(resul\cf3 t\cf2 , time\cf3 S\cf2 pan,\cf3  retryCount, context, logger);\
+                                            \cf2    \cf3               \});\
+        \}\
+\
+        private static void OnHttpRetry(De\cf2 le\cf3 gateResult<HttpResp\cf2 onse\cf3 Message> result, TimeSpan timeSpan, int retryCount\cf4 , Polly.Context context, ILogger logger)\
+        \{\
+            if (result.Result != null)\
+       \cf3      \{\
+                logger.LogWarning("Request failed with \{StatusCode\}. \cf2 Wait\cf3 ing \{timeSpan\} before next retry. Retry attempt \{\cf4 retryCount\}", result.Result.StatusCode, timeSpan, retryCount);\
+            \}\
+            else\
+         \cf3    \{\
+                logger.LogWarning("Request failed be\cf2 cause n\cf3 e\cf2 twork \cf3 failure. Waiting \{timeSpan\cf2 \} b\cf3 efore next retry. Retry attemp\cf2 t \{ret\cf3 ryCount\}", timeSpan, retryCount);\
+            \}\
+        \}\
+\
+       \cf2  pr\cf3 ivate static TimeSpan ComputeDuration(in
+\f1 t
+\fs22  
+\fs36 \cf6 i
+\fs22 \cf3 n
+\f0\fs16 \cf2 put)\
+\cf3  \cf2      \cf3  \cf5  \{\
+            return Tim\cf3 eSpan.FromSecon\cf2 ds(Mat\cf3 h\cf2 .Pow(2\cf3 , input)) + TimeSpan.FromMilliseconds(new Random().Next(0, 100));\
+        \}\
+    \}\
+\
+\
+\
+public class HttpCircuitBreakerPolicies\
+    \{\
+        public static Circ\cf2 uitBre\cf3 akerPolicy<HttpResponseMessage> GetHttpCircuitBreakerPolicy(ILogger logger, ICircuitBreakerPolicyConfig circuitBreakerPolicyConfig)\
+        \{\
+            return HttpPolicyBuilders.GetDefaultBuilder()\
+                                          .CircuitBreakerAsync(circuitBreakerPolicyConfig.RetryCount + 1,\
+                                                               TimeSpan.FromSeconds(circuitBreakerPolicyConfig.BreakDuration),\
+                                                               (result, breakDuration) =>\
+                                                               \{\
+                                                                   OnHttpBreak(result, breakDuration, circuitBreakerPolicyConfig.RetryCount, logger);\
+                                                               \},\
+                                                               () =>\
+                                                               \{\
+   \cf2       \cf3  \cf2       \cf3  \cf2     \cf3                                               OnHttpReset(logger);\
+             \cf2    \cf3                                                \});\
+        \}\
+\
+    \cf4     public static void OnHttpBreak(DelegateResult<HttpResponseMessage> result, Time\cf3 Span breakDuration, int retryCount, ILogge\cf2 r log\cf3 g\cf2 er)\cf3 \
+        \{\
+           \cf4  logger.LogWarning("Service shutdown during \{\cf3 breakDuration\} after \{\cf2 Defaul\cf3 t\cf2 RetryC\cf3 o\cf2 unt\}\cf3  failed retries.", breakDuration, retryCount);\
+            throw new Bro\cf4 kenCircuitException(\cf3 "Service inoperative.
+\f1\fs22  
+\fs36 \cf6 P
+\fs22 \cf3 l
+\f0\fs16 \cf2 ease t\cf3 r\cf2 y agai\cf3 n\cf2  late\cf3 r\cf5 ");\
+        \}\
+\
+        p\cf3 ublic static vo\cf2 id OnH\cf3 t\cf2 tpRese\cf3 t(ILogger logger)\
+        \{\
+        \cf2     \cf3 logger.LogInformation("Service restarte\cf2 d.");\cf3 \
+        \}\
+    \}\
+\
+\
+\
+\
+\
+public static class HttpClientBuilderExtensions\
+    \{\
+        public st\cf2 ati\cf3 c IHttpClientBuilder AddPolicyHandlers(thi\cf4 s IHttpClientBuilder httpClien\cf3 tBuilder, strin\cf2 g p\cf3 olicySectionName, ILoggerFactory loggerFactory, ICo\cf4 nfiguration configuration)\
+        \{\
+\cf3             var \cf2 ret\cf3 ryLogger = logge\cf2 rFa\cf3 ctory.CreateLogger("PollyHttpRetryPoliciesLogger");\
+            var circuitBreakerLogger = log\cf2 ger\cf3 Factory.CreateLogger("PollyHttpCircuitBreakerPoliciesLogger");\
+\
+            var pol\cf2 icy\cf3 Config = new PolicyConfig();\
+            configuration.Bind(policyS\cf2 ection\cf3 Name, policyConfig);\
+\
+            var circuitBreakerPolicyConfig = (ICircuitBreakerPolicyConfig)policyConfig;\
+            var retryPolicyConfig = (IRetryPolicyConfig)policyConfig;\
+\
+            return \cf2 httpCl\cf3 i\cf2 entBui\cf3 lder.AddRetryPolicyHandler(retryLogger, re\cf2 tryP\cf3 olicyConfig)\
+                                    .AddCircuitBreakerHandler(circuitBreakerLogger, circuitBreakerPol\cf2 icyCon\cf3 fig);\
+        \}\
+\
+        public static IHttpClientBuilder AddRetryPolicyHandler(this IHttpClientBuilder httpClientBuil\cf2 der, I\cf3 L\cf2 ogger \cf3 logger, IRetryPolicyConfig retryPolicyConfig)\cf2 \
+  \cf3       \{\
+            return httpClientBuilder.AddPolicyHandler(HttpRetryPolicies.GetHttpRetryPolicy(logger, retryPolicyConfig));\
+   \cf2      \}\cf3 \
+\
+        public static IHttpClientBuilder AddCircuitBreakerHandler(this IHttpClientBuilder httpClientBuilder, ILogger logger, ICircuitBreaker
+\f1 P
+\fs22 oli
+\f0\fs16 \cf2 cyConfig cir\cf3 c\cf2 uitBr\cf3 e\cf5 akerPol\cf3 icyConf\cf2 ig)\
+ \cf3        \{\
+            return httpClientBuilder.AddPolicyHandler(HttpCircuitBreakerPolicies.GetHttpCircuitBreakerPolicy(logger, circuitBreakerPolicyConfig));\
+      \cf2   \}\
+ \cf3    \}\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+public c\cf2 las\cf3 s Startup\cf2 \
+\{\
+ \cf3    public Startup(IConfiguration\cf2  co\cf3 nfigurati\cf2 on, IL\cf3 o\cf2 gger\cf3 Factory loggerFactory)\
+    \{\
+        Configuration = configuration;\
+        LoggerFactory = loggerFactory;\
+    \}\
+\
+    public IConfiguration Co\cf2 nfigur\cf3 a\cf2 tion\cf3  \{ get; \}\
+\
+    public ILoggerFactory LoggerFactory \{ get; \}\
+\
+    public void ConfigureServices(IServiceCollection services)\
+    \{\
+        services.AddMvc().SetCompa\cf2 tib\cf3 ility\cf4 Version(CompatibilityVer\cf3 sion.Version_2_2);\
+\
+        publ\cf4 ic void Config\cf3 ureServices(IServiceCollection services)\
+    	\cf2 \{\
+	se\cf3 r\cf2 vice\cf3 s.AddHttpClient<IMessagesServices, MessagesServices>(client =>\
+        		\{\
+        			client.BaseAddress = new Uri("http://w
+\f2\b w
+\f1\b0\fs22 w.
+\f3\fs24 \cf0 contoso.com");\
+        		\}).AddPolicyHandlers("PolicyConfig", LoggerFactory, Configuration);\
+	\}\
+    \}\
+\
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)\
+    \{\
+        app.UseMvc();\
+    \}\
+\}\
+\
+\
+}

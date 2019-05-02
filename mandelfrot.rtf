@@ -1,0 +1,237 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fmodern\fcharset0 CourierNewPSMT;\f1\froman\fcharset0 TimesNewRomanPSMT;\f2\fswiss\fcharset0 Helvetica;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red1\green25\blue147;\red146\green146\blue146;
+\red0\green143\blue0;\red4\green51\blue255;\red148\green55\blue255;\red255\green147\blue0;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c0\c0;\csgenericrgb\c484\c9609\c57496;\csgenericrgb\c57414\c57415\c57415;
+\csgenericrgb\c0\c56028\c0;\csgenericrgb\c1680\c19831\c100000;\csgenericrgb\c58187\c21569\c100000;\csgenericrgb\c100000\c57810\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww15960\viewh15300\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs20 \cf2 fetch \cf3 (\cf4 "mandelbrot.wasm"\cf3 ).\cf2 then \cf3 (\cf2 \
+	response\cf3  =\cf2 > respons\cf3 e\cf2 .arrayBuffer\cf3  ()\cf2 .then\cf3  \cf2 (\
+		arrayBuffe\cf3 r \cf2 => WebAssemb\cf3 l\cf2 y.instantiat\cf3 e\cf2  (arrayBuff\cf3 e\cf2 r, importObje\cf3 ct\cf2 ).the\cf3 n\cf2  (\
+		respon\cf3 se\cf2  \cf3 =\cf2 > \{\cf5 \
+			// Utiliser response.insta\cf2 nc\cf3 e\cf2 \
+		\},\
+		\cf3 er\cf2 r\cf3 o\cf2 r => \{ c\cf3 o\cf2 nsol\cf3 e\cf2 .log \cf3 (\cf2 error.m\cf3 e\cf2 s\cf3 s\cf2 a\cf3 ge) \cf2 \}
+\f1\fs24 \
+)
+\f0\fs20 \cf6 ));\cf2 \
+\
+\
+\
+var im\cf3 p\cf2 o\cf3 r\cf2 tObject = \{\
+\cf3 	\cf2 s\cf3 o\cf2 meImports\cf3 :\cf2  \cf6 \{\
+\cf2 		memory: ne\cf3 w\cf2  WebAss\cf3 em\cf2 bly.Memo\cf3 r\cf2 y\cf7  (\{ \cf3 i\cf2 nitia\cf3 l\cf2 : Math\cf3 .\cf2 ceil (WI\cf3 D\cf2 T\cf8 H\cf2  \cf3 *\cf2  \cf8 HEIGH\cf3 T\cf2  \cf3 * \cf2 4 \cf3 /\cf2  \cf3 65
+\f1\fs24 \cf2 53
+\f0\fs20 \cf3 6)\cf2  \})\
+	\}\
+\}\
+\
+\
+ (func  \cf3   \cf2          \cf3  \cf2  \cf3  \cf2   \cf3  \cf2  ;; Empiler \cf3 (\cf2 A)\
+	(local $i i32)\
+	(b\cf3 lo\cf2 ck       \cf3  \cf2  \cf3  \cf2       \cf8 ;\cf2 ; Empiler (B\cf3 )\cf2 \
+		br 0    \cf3  \cf2  \cf3  \cf2      ;\cf3 ;\cf6  Saut\cf2 e\cf8 r\cf2  en (B)\
+		i32.con\cf3 st\cf2  \cf3 7\
+\cf2 		\cf3 s\cf2 et\cf3 _l\cf2 o\cf3 c\cf2 a\cf3 l\cf2  \cf3 $i
+\f1\fs24 \cf2 \
+	
+\f0\fs20 \cf3 	;\cf2 ; (B)\
+	)\
+	;; (A)\
+)\
+\cf3 \
+\cf2 \
+\
+ (func\cf3  \cf2  \cf3  \cf2   \cf3  \cf2             \cf3  \cf2  ;\cf3 ;\cf2  Empiler (A)\
+	(loca\cf3 l \cf2 $i i32)\
+\cf3 	\cf2 (\cf3 l\cf2 oop\cf3   \cf2  \cf3  \cf2  \cf3  \cf2       \cf8  \cf2    ;; Empile\cf3 r \cf2 (B)\
+		;; (\cf3 B\cf2 )\
+		br \cf3 0\cf6      \cf2  \cf8  \cf2      ;; Sauter en\cf3  \cf2 (B\cf3 )\cf2 \
+\cf3 	\cf2 	\cf3 i\cf2 3\cf3 2.
+\f1\fs24 \cf2 co
+\f0\fs20 \cf3 ns\cf2 t 7\
+		set_local $i\
+	)\
+	;; (A)\
+)\
+\
+\
+ (func             \cf3   \cf2          \cf3  \cf2  \cf3  \cf2   \cf3  \cf2             \cf3  \cf2   \cf3  \cf2           ;; \cf3 E\cf2 mpi\cf3 l\cf6 er (A\cf2 )\cf8 \
+\cf3 	(\cf2 lo\cf3 c\cf2 al $i i32)\
+	(set_local $i (i32.const 10))\
+	(loop      \cf3   \cf2          \cf3  \cf2  \cf3  \cf2    \cf3   \cf2  \cf3  \cf2  \cf3  \cf2    \cf3  \cf2              \cf3  \cf2    \cf3  \cf2  ;; \cf3 E\cf2 mpiler (B)\
+\cf3 	\cf2 	\cf3 ;\cf2 ; (\cf3 B\cf6 )\
+		\cf2 (\cf8 s\cf3 et_\cf2 loc\cf3 a\cf2 l $i (\cf8 i\cf2 3\cf3 2\cf2 .su\cf3 b\cf2  (g\cf3 e\cf2 t_local $i) \cf3 (\cf2 i\cf3 3\cf2 2.c\cf3 o\cf6 nst 1\cf2 )\cf8 )\cf3 )\
+\cf2 		(br_if\cf3  0\cf2  (i32.ne (g\cf3 e\cf2 t\cf3 _\cf2 lo\cf3 c\cf2 al\cf3  $\cf2 i\cf3 )\cf2  \cf3 (\cf2 i\cf3 32
+\f1\fs24 \cf2 .c
+\f0\fs20 \cf3 on\cf2 st 0)))        ;; Sauter en (B)\
+	)\
+	;; (A)\
+)\
+\
+\cf3 \
+ \cf2 (func    \cf3  \cf2  \cf3  \cf2   \cf3  \cf2             \cf3  \cf2   \cf3  \cf2             \cf3  \cf2   \cf3  \cf2       ;; Empi\cf3 l\cf2 er \cf3 (\cf6 A)\
+	\cf2 (\cf8 l\cf3 oc\cf2 al\cf3  \cf2 $i i32)\
+	(lo\cf3 c\cf2 al \cf3 $\cf6 j i32\cf2 )\cf8 \
+\cf3 	(\cf2 se\cf3 t\cf2 _local $i (i32.const 5))\
+	(set_local $j (i32.con\cf3 st\cf2  10))\
+	(\cf3 b\cf2 l\cf3 o\cf2 ck \cf3  \cf2                                           ;;\cf3  E\cf2 mpiler (B\cf3 )\
+\cf2 		(l\cf3 oo\cf2 p\cf3  \cf2  \cf3  \cf2     \cf3  \cf2              \cf3  \cf2    \cf3  \cf2     \cf3  \cf2          ;; \cf3 E\cf2 m\cf3 p\cf2 ile\cf3 r\cf6  (C)\cf2 \
+\cf8 	\cf3 		;\cf2 ; (C\cf3 )\cf2 \
+			(set_loc\cf3 a\cf2 l $\cf3 i\cf2  (i3\cf3 2\cf2 .sub (get_lo\cf3 c\cf2 a\cf3 l\cf2  $i\cf3 )\cf6  (i32\cf2 .\cf8 c\cf3 ons\cf2 t 1)\cf3 )\cf2 )\
+			\cf8 (\cf2 s\cf3 e\cf2 t_l\cf3 o\cf2 cal \cf3 $\cf2 j (i32.sub (\cf3 get\cf2 _local $\cf3 j)\cf2  (i32.const\cf3  \cf2 1\cf3 )\cf2 ))\
+\cf3 	\cf2 		(br_\cf8 i\cf2 f\cf3  \cf2 1 (\cf3 i\cf2 32.e\cf3 q\cf2 z (get_local\cf3  $i\cf2 )))     \cf3   \cf2  ;; Sauter \cf3 e\cf2 n\cf3  \cf2 (C)\
+		\cf8 	\cf2 (br_if 1 (i32.eqz (get_local $j)))  \cf3   \cf2     ;; Saut\cf3 e\cf2 r\cf3  \cf2 en \cf3 (\cf2 C)\cf3 \
+	\cf2 	\cf3 	\cf2 b\cf3 r\cf2  0\cf3  \cf2   \cf3   \cf2  \cf3  \cf2  \cf3  \cf2  \cf3   
+\f1\fs24 \cf2   
+\f0\fs20 \cf3   \cf2                     ;; Sauter en (B)\
+		)\
+		;; \cf3 (B\cf2 )\
+	)\
+	;\cf3 ;\cf2  \cf3 (\cf2 A)\
+)\
+\
+\
+ \
+\
+(fu\cf3 n\cf2 c \cf3  \cf2             \cf3  \cf2   \cf3  \cf2              \cf3  \cf2    \cf3  \cf6      \cf2  \cf8  \cf3  ;\cf2 ; \cf3 E\cf2 mpiler (A)\
+	\cf3 (\cf2 loc\cf3 a\cf6 l $i \cf2 i\cf8 32\cf3 )\cf2 \
+	\cf3 (\cf2 local $j i32)\
+	(set_local $i (i32.const 5))\cf3 \
+\cf2 	(set_loc\cf3 a\cf2 l\cf3  \cf2 $j \cf3 (i\cf2 3\cf3 2\cf2 .\cf3 c\cf2 ons\cf3 t\cf2  10))\
+	(loop\cf3  \cf2    \cf3  \cf2     \cf3  \cf2             \cf3  \cf2  \cf3  \cf2    \cf3  \cf6      \cf2  \cf8  \cf3    \cf2  ;;\cf3  \cf2 Empiler (B)\
+\cf3 	\cf2 	;;\cf3  \cf2 (B)\cf3 \
+\cf2 		(set_local\cf3  \cf2 $\cf3 i\cf2  (i\cf3 3\cf6 2.sub\cf2  \cf8 (\cf3 get\cf2 _lo\cf3 c\cf2 al $i)\cf8  \cf2 (\cf3 i\cf2 32.\cf3 c\cf2 onst\cf3  \cf2 1)))\
+		(set\cf3 _lo\cf2 cal $j (\cf3 i3\cf2 2.sub (get_\cf3 l\cf2 o\cf3 c\cf2 al \cf3 $\cf2 j) (i3\cf8 2\cf2 .\cf3 c\cf2 ons\cf3 t\cf2  1))\cf3 )\cf2 \
+		(br_if 1\cf3  (i\cf2 32.eqz (\cf3 ge\cf2 t_local $i)\cf3 )\cf2 )\cf3  \cf2       \cf8  \cf2 ;; Sauter en (A)\
+		(br_if 1 (i32.eq\cf3 z \cf2 (get_local \cf3 $\cf2 j\cf3 )\cf2 ))\cf3  \cf2        ;; Sauter en (A)\
+		br 0                  \cf3   \cf2                 ;;\cf3  S\cf2 a\cf3 u\cf2 t\cf3 e\cf2 r\cf3  e
+\f1\fs24 \cf2 n
+\f0\fs20 \cf3  (\cf2 B)\
+	)\
+\cf3 	\cf2 nop    \cf3  \cf6       \cf2  \cf4          \cf2  \cf4         \cf3  \cf2  \cf8  \cf3  \cf2   \cf3  \cf2      \cf3  \cf6  ;; Ja\cf2 m\cf4 ais ex\'e9cut\'e9e\cf2 \
+	;\cf3 ;\cf2  (A)\
+)\
+\
+\
+\
+ (mod\cf3 u\cf2 le\cf3 \
+\cf2 	(memory (import \cf3 "\cf2 imp\cf3 o\cf2 rts" "memory") \cf3 1\cf2 )\
+\cf3 	\cf2 (func (export "\cf3 m\cf2 and\cf3 e\cf2 lbrot")\
+		(par\cf3 a\cf2 m $\cf3 w\cf2 idth i32)\
+		(p\cf3 a\cf2 ram\cf3  \cf2 $height i32)\
+	\cf3 	\cf2 (pa\cf3 ra\cf2 m\cf3  $m\cf2 in\cf3 X\cf2  \cf3 f64)\cf2 \
+		(param $maxX \cf3 f\cf6 64)\
+	\cf2 	\cf4 (param $minY\cf3  \cf2 f6\cf3 4\cf2 )\
+		(param $max\cf3 Y\cf2  f\cf3 6\cf2 4)\
+		(param $max\cf3 N\cf2  i\cf3 3\cf2 2)\
+		;; ...\
+	\cf3 )\cf2 \
+\cf3 )\
+\
+\cf2 \
+ (func $mande\cf3 l\cf2 br\cf3 o\cf2 t (export "mand\cf3 e\cf2 lb\cf3 r\cf2 ot")\
+	(param $\cf3 w\cf2 id\cf3 t\cf2 h i32)\
+	(param\cf3  \cf2 $h\cf3 e\cf2 ight i32)\
+	\cf3 (\cf2 pa\cf3 r\cf2 am $minX f64\cf3 )\cf2 \
+\cf3 	\cf2 (param $maxX \cf3 f\cf2 64\cf3 )\cf2 \
+	(param $mi\cf3 n\cf2 Y \cf3 f\cf2 64)\
+	(param\cf3  \cf2 $m\cf3 a\cf2 xY f64)\
+	(p\cf3 a\cf2 ra\cf3 m\cf2  $maxN i32)\cf3 \
+\cf2 	(\cf3 l\cf2 ocal $i i32)\
+	\cf3 (\cf2 local $j i32\cf3 )\cf2 \
+\cf3 	\cf2 (local $dx f\cf3 6\cf2 4)\
+	(local $dy f64\cf3 )\cf2 \
+\cf3 	\cf2 (local $x f64)\
+	(\cf3 l\cf2 ocal\cf3  \cf2 $y \cf3 f\cf2 64)\cf3 \
+\cf2 	(local $a f64)\
+\cf3 	\cf2 (local $b f64)\cf3 \
+	\cf2 (\cf3 l\cf2 oca\cf3 l\cf2  $c f64)\cf3 \
+\cf2 	(lo\cf3 c\cf2 al $n i32)\
+	(lo\cf3 cal \cf2 $i\cf3 n\cf2 dex i32)\
+	(se\cf3 t\cf2 _lo\cf3 c\cf2 al $\cf3 d\cf2 x (\cf3 f\cf2 64.d\cf3 i\cf2 v (f64.sub (get\cf3 _\cf2 l\cf3 o\cf2 cal $maxX) (get\cf3 _l\cf2 o\cf3 c\cf2 al \cf3 $\cf2 minX)) (f\cf3 6\cf2 4.co\cf3 n\cf2 vert_u/i32 (get_l\cf3 ocal\cf2  $\cf3 w\cf2 idth))))\
+	(s\cf3 e\cf2 t_local $dy (f64.\cf3 di\cf2 v \cf3 (\cf2 f64.sub (get_\cf3 l\cf2 ocal $maxY) (ge\cf3 t_\cf2 lo\cf3 c\cf2 al $minY)) (f64.c\cf3 o\cf2 nve\cf3 r\cf6 t_u/i\cf2 3\cf8 2\cf3  (\cf2 ge\cf3 t\cf2 _local \cf3 $\cf2 height))))\
+	\cf3 (\cf2 set_local $j (ge\cf3 t_\cf2 loc\cf3 a\cf2 l $height))\
+\cf3 	\cf2 (set_local $y (\cf3 ge\cf2 t_l\cf3 o\cf2 cal $minY))\cf3 \
+\cf2 	(set_local $\cf3 i\cf2 nde\cf3 x\cf6  (i32\cf2 .\cf8 con\cf3 st\cf2  0))\
+	(loop\
+		(s\cf3 e\cf2 t_l\cf3 o\cf6 cal $\cf2 i\cf8  (g\cf3 et\cf2 _loc\cf3 a\cf2 l $width))\
+	\cf3 	\cf2 (set_local $x (\cf3 ge\cf2 t_lo\cf3 c\cf2 al $minX))\
+		(loop  \cf3   \cf2 \
+		\cf3 	\cf2 (set\cf3 _\cf2 local $a (f6\cf3 4\cf2 .const 0.0))\
+			(set_lo\cf3 ca\cf2 l $b (f6\cf3 4\cf2 .con\cf3 s\cf2 t 0.\cf3 0\cf2 ))\
+\cf3 	\cf2 		(s\cf3 e\cf2 t_local $\cf3 n\cf2  (g\cf3 e\cf2 t_lo\cf3 c\cf2 al $maxN))\
+\cf3 	\cf2 	\cf3 	\cf2 (block\
+				\cf3 (l\cf2 oop\
+	\cf3 	\cf2 			\cf3 ;\cf2 ; $c\cf3  \cf2 = $\cf3 a\cf2  (ju\cf3 s\cf2 t push it)\
+\cf3 	\cf2 	\cf3 	\cf2 		get_local \cf3 $a\cf2 \
+					\cf3 ;\cf2 ; Set $a = $a\cf3  \cf2 * $\cf3 a\cf2  - $\cf3 b\cf2  * $b + $x\
+\cf3 			\cf2 		(f64\cf3 .m\cf2 ul (get_\cf3 l\cf2 o\cf8 c\cf2 a\cf3 l\cf2  $a)\cf3  \cf2 (get\cf3 _\cf2 local $a\cf3 )\cf2 )\
+\cf3 	\cf2 				\cf3 (\cf2 f64\cf3 .\cf6 sub (\cf2 f\cf8 64.\cf3 mu\cf2 l (get_l\cf3 oc\cf2 al $b) (get_local $\cf3 b\cf2 )))\
+			\cf3 	\cf2 	(set_local \cf3 $a\cf2  (f64.\cf3 a\cf2 dd (get_local\cf3  \cf2 $x)\cf3 )\cf2 )\
+	\cf3 	\cf2 			;; Set $b\cf3  = \cf2 2 * $c\cf3  *\cf2  $b + y\cf3 \
+	\cf2 	\cf8 	\cf2 		(f64\cf3 .\cf2 mul (f64.cons\cf3 t\cf2  2.\cf3 0\cf2 ))  \cf3  \cf2      ;; This\cf3  \cf2 p\cf3 o\cf2 ps \cf3 $\cf6 a\
+		\cf2 	\cf8 	\cf3 	(f\cf2 64.mul\cf3  (\cf2 get_loc\cf6 al\cf2  $b)\cf3 )\cf2 \
+		\cf3 	\cf2 		(s\cf3 e\cf2 t_lo\cf3 ca\cf2 l\cf8  $b\cf2  (f64.\cf3 a\cf2 dd \cf3 (\cf2 get_\cf3 l\cf2 oca\cf3 l\cf2  $y)\cf3 )\cf2 )\
+					;; S\cf3 e\cf2 t\cf3  \cf2 $n -= 1\
+			\cf3 		\cf2 (\cf3 s\cf2 et_\cf3 l\cf2 ocal\cf3  \cf2 $n (i32.sub \cf3 (\cf2 g\cf3 e\cf2 t_local $n) \cf3 (i3\cf2 2.cons\cf3 t\cf2  1)))\cf8 \
+\cf2 	\cf3 	\cf2 			\cf3 ;\cf2 ; B\cf3 r\cf2 eak\cf3  \cf6 if $a\cf2  \cf8 * $\cf3 a +\cf2  $b * \cf3 $b\cf2  >= 4.0\cf6 \
+\cf2 				\cf3 	(\cf2 f\cf8 6\cf3 4\cf2 .\cf6 add \cf2 (f64.mul (g\cf3 e\cf2 t_loca\cf8 l\cf2  \cf3 $\cf2 a) \cf3 (\cf2 get_\cf3 l\cf2 ocal $a)) (f\cf3 64.\cf2 mul (get_\cf8 l\cf2 ocal \cf3 $\cf2 b) (\cf3 g\cf2 et_l\cf3 oc\cf2 al $b))\cf3 )\cf8 \
+					(br\cf2 _\cf3 i\cf2 f\cf3  1\cf2  (f\cf3 6\cf2 4\cf8 .ge\cf2  \cf3 (\cf2 f\cf3 6\cf2 4.cons\cf3 t\cf2  \cf8 4\cf3 .0\cf2 )\cf3 )\cf2 )\cf8 \
+		\cf3 		\cf2 	;; Break if $n == 0, else loop\
+					(b\cf3 r\cf2 _if\cf3  \cf2 1 (i32.\cf3 e\cf2 qz (\cf3 g\cf2 et_\cf3 l\cf2 ocal\cf3  \cf2 $n)\cf3 )\cf2 )\
+					b\cf3 r\cf2  0\
+\cf3 	\cf2 			\cf3 )\cf2 \
+		\cf3 	\cf2 )\
+			;; Sto\cf3 r\cf2 e\cf3  \cf2 (0x\cf3 F\cf6 F0000\cf2 0\cf8 0 |\cf3  ((\cf2 $\cf3 n\cf2  * \cf3 2\cf2 55 / ($ma\cf3 x\cf2 N - \cf3 1\cf2 )) \cf3 &\cf2  0xF\cf3 F\cf2 )) at index $in\cf3 d\cf2 e\cf3 x\cf2 \
+	\cf3 	\cf6 	get_\cf2 l\cf8 o\cf3 cal $\cf2 inde\cf3 x\cf2 \
+	\cf3 	\cf2 	(i\cf3 3\cf2 2.t\cf3 r\cf6 unc_u\cf2 /\cf8 f64 (f64.d\cf3 iv\cf2  (f64.c\cf3 o\cf2 nvert_u/i\cf3 32\cf2  (i32.mul (g\cf6 et_l\cf2 oc\cf3 a\cf2 l $n) (i32.c\cf3 o\cf2 nst \cf3 255\cf2 )))\cf3  \cf2 (f64.conv\cf3 er\cf2 t_u/\cf3 i\cf2 32 (i32.sub (get\cf3 _\cf2 loca\cf3 l \cf2 $max\cf3 N\cf2 ) (\cf3 i\cf2 32.con\cf3 st\cf2  1)))))\cf3 \
+\cf2 			\cf3 (\cf6 i32.o\cf2 r\cf8  (i32.cons\cf3 t\cf2  0xF\cf3 F0\cf2 00000))\cf3 \
+\cf2 			\cf3 i\cf2 32.stor\cf3 e\cf2 \
+		\cf3 	\cf2 ;; \cf3 S\cf2 ame \cf3 t\cf2 hin\cf3 g\cf2  with S-e\cf3 x\cf2 pres\cf3 s\cf2 ion\cf3 s\cf2  :\
+\cf3 	\cf2 		;;(i32.sto\cf3 r\cf2 e\
+		\cf3 	\cf6 ;;   \cf2  \cf8 (ge\cf3 t_l\cf2 o\cf3 c\cf2 al \cf3 $\cf2 index)\
+	\cf3 	\cf2 	;; \cf3  \cf2   (\cf3 i\cf2 32.o\cf3 r\cf2 \
+			;;        \cf3 (\cf2 i\cf3 3\cf2 2.c\cf3 o\cf6 nst 0\cf2 x\cf8 F\cf3 F0000\cf2 00)\cf3 \
+	\cf2 		;;\cf3  \cf2     \cf3    \cf2 (i32\cf3 .t\cf2 runc_u/f64 (\cf3 f6\cf2 4\cf8 .\cf2 div \cf3 (\cf2 f64.convert_u/i32\cf3  \cf2 (i3\cf3 2\cf2 .mul\cf3  \cf2 (get_local $n) (\cf3 i\cf2 3\cf3 2\cf2 .co\cf3 n\cf6 st 25\cf2 5\cf8 )\cf3 )) \cf2 (f64.con\cf3 ve\cf2 rt_u/i32\cf3  (\cf2 i32.sub \cf3 (\cf2 get_local $ma\cf3 x\cf2 N) \cf3 (\cf2 i32.\cf3 c\cf2 onst 1)))))\cf3 \
+\cf2 	\cf3 	\cf2 	;;    )\
+			\cf3 ;;)\cf2 \
+		\cf3 	;\cf2 ; Set \cf6 $i\cf2 ndex\cf3  +\cf2 =\cf3  4\cf8 \
+\cf3 	\cf2 	\cf6 	(se\cf2 t_local $\cf3 i\cf2 ndex (i32.add\cf3  \cf2 (ge\cf3 t\cf2 _loc\cf3 a\cf2 l $index) (i\cf3 3\cf2 2\cf3 .\cf2 con\cf3 s\cf6 t 4))\cf2 )\cf3 \
+		\cf2 	\
+	\cf3 	\cf2 	;; Se\cf8 t\cf2  \cf3 $\cf2 x +\cf3 =\cf2  $d\cf3 x\cf2 \
+			(set_lo\cf3 c\cf2 a\cf3 l\cf2  $x\cf3  \cf6 (f64.\cf2 a\cf8 d\cf3 d (\cf2 get\cf3 _\cf2 loc\cf3 al\cf2  $x) (ge\cf3 t_\cf2 local $\cf3 d\cf2 x)))\
+			;; L\cf3 o\cf2 op \cf3 i\cf2 f $i\cf3  \cf2 -- != 0, els\cf3 e\cf2  \cf3 e\cf2 xit\
+			(set_\cf3 loc\cf2 al \cf3 $i\cf2  (i32.\cf6 su\cf2 b (g\cf3 et\cf2 _\cf3 lo\cf2 c\cf8 a\cf3 l\cf2  \cf6 $i) \cf2 (i32.con\cf3 s\cf2 t 1)))\
+			(b\cf3 r\cf2 _if\cf3  \cf2 0 (i\cf3 3\cf2 2.ne (get_lo\cf3 c\cf2 a\cf3 l\cf2  $i\cf3 )\cf6  (i32\cf2 .\cf8 c\cf3 ons\cf2 t 0\cf3 )\cf2 ))\
+		\cf8 )\cf3 \
+\cf2 		;\cf3 ;\cf2  Se\cf3 t\cf2  $y += $dy\
+\cf3 	\cf2 	\cf3 (\cf2 set\cf3 _\cf6 local\cf2  \cf8 $\cf3 y (\cf2 f6\cf3 4\cf2 .\cf3 ad\cf6 d (\cf2 get_loc\cf3 a\cf2 l\cf8  $\cf3 y\cf2 ) (get_l\cf3 o\cf2 c\cf8 al\cf3  \cf2 $\cf6 dy)\cf2 ))\
+		;; Loop \cf3 i\cf2 f\cf3  \cf2 $j -- != \cf3 0\cf2 ,\cf3  \cf2 else exit\
+\cf6 		(\cf2 set_local $j\cf3  \cf2 (i32.su\cf3 b \cf2 (get_loc\cf3 a\cf2 l\cf7  $j)\cf3  \cf2 (i32.\cf3 c\cf2 onst 1\cf3 )\cf2 ))\
+		(b\cf3 r\cf2 _\cf8 i\cf2 f\cf3  \cf2 0\cf8  (i32\cf3 .\cf2 n\cf3 e \cf2 (g\cf3 e\cf2 t\cf3 _l\cf2 o\cf6 cal $\cf2 j) (i32.const \cf3 0\cf2 )\cf6 ))\cf2 \
+	)\
+)\
+\
+\
+var \cf3 w\cf2 idth = 11\cf3 ,\cf2  height = \cf3 1\cf2 1;\
+var impor\cf3 tO\cf2 bject = \{\
+	i\cf3 m\cf2 ports: \cf3 \{\cf2 \
+		memory:\cf3  \cf2 new W\cf3 e\cf2 bAssemb\cf3 l\cf2 y\cf3 .\cf8 Mem\cf3 o\cf2 r\cf8 y (\cf3 \{\cf2  \cf3 i\cf8 nit\cf3 i\cf2 a\cf8 l: \cf3 M\cf2 a\cf8 th\cf3 .c\cf2 e\cf6 il \cf2 (w\cf3 i\cf2 dt\cf3 h\cf2  * heig\cf3 h\cf2 t * 4 / \cf3 6\cf2 5\cf6 536\cf2 ) \})\
+	\}\
+\};\cf3 \
+\cf2 const wasmIn\cf3 s\cf2 tance =\cf3  \cf2 new We\cf3 b\cf2 Assemb\cf3 ly\cf2 .\cf6 Ins\cf2 t\cf3 a\cf2 nc\cf3 e\cf2  \cf8 (\cf3 w\cf2 asm\cf3 Mo\cf2 dule, i\cf3 m\cf2 por\cf3 tOb\cf2 j\cf3 e\cf2 ct\cf6 );\cf2 \
+\cf3 w\cf2 as\cf3 m\cf2 I\cf8 n\cf3 s\cf2 tan\cf3 ce\cf2 .exports\cf3 .\cf2 ma\cf3 nde\cf2 lbrot (wid\cf3 t\cf2 h, h\cf3 eight, -2.1, 1.1, -1.4, 1.4, 20);\
+var i, j, pixels;\
+pixe\cf2 l\cf3 s 
+\f1\fs24 \cf2 =
+\f2 \cf0  new Uint32Array (importObject.imports.memory.buffer);\
+for (j = 0; j != height; j ++) \{\
+	for (i = 0; i != width  ; i++)\
+		console.log (`($\{i\}, $\{j\}) = $\{pixels[i + j * width].toString (16)\}`);\
+\}\
+\
+}

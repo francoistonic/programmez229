@@ -1,0 +1,100 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf400
+{\fonttbl\f0\fnil\fcharset0 Calibri-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab708
+\pard\pardeftab708\ri-340\partightenfactor0
+
+\f0\fs22 \cf0 \
+std::wstring ServerHelper::GetIP()\
+\{\
+	//return L"127.0.0.1";\
+	//return L"0.0.0.0";\
+\
+	// Init WinSock\
+	WSADATA wsa_Data;\
+	int wsa_ReturnCode = WSAStartup(MAKEWORD(2, 2), &wsa_Data);\
+\
+	// Get the local hostname\
+	char szHostName[255];\
+	gethostname(szHostName, 255);\
+\
+	struct hostent *remoteHost;\
+	struct in_addr addr;\
+	std::string ip;\
+\
+	remoteHost = gethostbyname(szHostName);\
+\
+	if (remoteHost->h_addrtype == AF_INET) \
+	\{\
+		int i = 0;\
+		while (remoteHost->h_addr_list[i] != 0) \
+		\{\
+			addr.s_addr = *(u_long *)remoteHost->h_addr_list[i++];\
+			printf("\\tIPv4 Address #%d: %s\\n", i, inet_ntoa(addr));\
+			ip = inet_ntoa(addr);\
+		\}\
+	\}\
+\
+	WSACleanup();\
+	std::wstring ipw(ip.begin(), ip.end());\
+	return ipw;\
+\}\
+\
+\
+\
+\
+DWORD AutomateThread(LPVOID pParam)\
+\{\
+	try\
+	\{\
+		g_Logger.WriteLog(_T("Running in console mode... Entering while()..."));\
+		std::wstring port = Constants::MasterNodePort;\
+		std::wstring host = ServerHelper::GetHostName();\
+		std::wstring ip = ServerHelper::GetIP();\
+		std::wstring url = ServerHelper::BuildURL(ip, port);\
+		http::uri uri = http::uri(url);\
+		std::wstring address = uri.to_string();\
+		std::wstring name = _T("Master");\
+\
+		std::vector<std::wstring> v = ServerHelper::GetIPs();\
+		for (std::wstring ipE : v)\
+		\{\
+			g_Logger.WriteLog(ipE);\
+		\}\
+		g_Logger.WriteLog(_T("Enum IP addresses ok"));\
+\
+		//\
+		// Create the server instance\
+		//\
+\
+		TCHAR sz[255];\
+		_stprintf_s(sz, _T("IP : %s"), ip.c_str());\
+		g_Logger.WriteLog(sz);\
+\
+		g_Logger.WriteLog(_T("Creating server ip/port..."));\
+		TheServer client(address);\
+		g_Logger.WriteLog(_T("Creating server ip/port ok"));\
+		client._server = ip;\
+		client._port = port;\
+		client._name = name;\
+		client.Init();\
+\
+		g_Logger.WriteLog(_T("Waiting..."));\
+		while (TRUE)\
+		\{\
+			if (_Module.m_bStop)\
+			\{\
+				std::wcout << _T("Running in console mode.") << std::endl;\
+				goto stop_service;\
+				break;\
+			\}\
+			\
+			Sleep(5000);\
+			g_Logger.WriteLog(_T("MainThread Sleep..."));\
+\
+		\} // Main loop\
+\
+\
+}
